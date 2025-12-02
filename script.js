@@ -44,6 +44,7 @@ function handleBarClick(event) {
         distance: distanceToCenter,
         element : weightElement
     })
+    createLogEntry(mass, distanceToCenter);
     updatePhysics();
     console.log("olusturulmus weight: ", {mass, distanceToCenter});
     console.log("olusturulan weight'in X pos:", clickX)
@@ -118,7 +119,32 @@ function updatePhysics() {
 
     leftWeightSpan.textContent = massLeft;
     rightWeightSpan.textContent = massRight;
-    angleSpan.textContent = angleTarget.toFixed(1) + "°";
+    angleSpan.textContent = angleTarget.toFixed(1);
+}
+
+function createLogEntry(mass, distanceToCenter) {
+    const entries = document.getElementById("entries");
+    const entry = document.createElement("div");
+    entry.classList.add("log-entry");
+
+    const side = distanceToCenter < 0 ? "Left" : "Right";
+    const distanceCm = (Math.abs(distanceToCenter) / 5).toFixed(1);
+
+    let color;
+    if(mass <= 3) {
+        const greens = ["rgba(144, 238, 144, 0.5)", "rgba(32, 205, 32, 0.5)", "rgba(34, 139, 34, 0.5)"];
+        color = greens[mass - 1];
+    } else if (mass < 8) {
+        const yellows = ["rgba(255, 255, 100, 0.9)", "rgba(255, 235, 59, 0.9)", "rgba(255, 215, 0, 1)", "rgba(255, 165, 0, 0.9)"];
+        color = yellows[mass - 4];
+    } else {
+        const reds = ["rgba(255, 127, 127, 0.5)", "rgba(255, 76, 76, 0.5)", "rgba(255, 0, 0, 0.5)"];
+        color = reds[mass - 8];
+    }
+    entry.style.borderColor = color;
+    entry.innerHTML = `Placed <strong style="color:${color}">${mass} kg</strong> weight on the <strong>${side}</strong> side, <strong>${distanceCm} cm</strong> from center.`;
+
+    entries.prepend(entry);
 }
 
 function animate() {
@@ -142,7 +168,9 @@ function resetSeesaw() {
 
     leftWeightSpan.textContent = "0";
     rightWeightSpan.textContent = "0";
-    angleSpan.textContent = "0°";
+    angleSpan.textContent = "0";
+
+    document.getElementById("entries").innerHTML = "";
 
 }
 
@@ -161,7 +189,7 @@ bar.addEventListener("mousemove", (e) => {
     
 
     const previewSize = 20 + (nextMass * 5);
-    weightPreview.textContent = nextMass;
+    weightPreview.textContent = nextMass + " kg";
     weightPreview.style.width = previewSize + "px";
     weightPreview.style.height = previewSize + "px";
     weightPreview.style.left = (hoverX - previewSize / 2) + "px";

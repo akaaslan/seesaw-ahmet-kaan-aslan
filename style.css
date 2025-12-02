@@ -119,6 +119,77 @@ body {
     align-items: center;
 }
 
+#log {
+    margin: 24px auto;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    max-width: 810px;
+    width: 100%;
+    overflow: hidden;
+}
+
+#log-header {
+    padding: 20px;
+    background: white;
+    border-bottom: 2px solid #eee;
+}
+
+#log-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+#log-content {
+    padding: 20px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#entries {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.log-entry {
+    padding: 10px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-size: 14px;
+    color: #555;
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    } to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+}
+
+.log-entry .mass {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.log-entry .distance {
+    font-style: italic;
+    font-size: 16px;
+}
+
+.log-entry .side {
+    text-transform: capitalize;
+    font-size: 16px;
+}
+
 .weight {
     position: absolute;
     border-radius: 50%;
@@ -146,7 +217,6 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #cc9900;
-    animation: pulse 1.5s ease-in-out infinite;
 }
 
 .weight-preview::before {
