@@ -14,6 +14,8 @@ const weightPreview = document.createElement("div");
 weightPreview.classList.add("weight-preview");
 bar.appendChild(weightPreview);
 
+const weightSound = new Audio("assets/pop.mp3")
+
 bar.addEventListener("click", handleBarClick);
 reset.addEventListener("click", resetSeesaw);
 
@@ -39,6 +41,8 @@ function handleBarClick(event) {
     nextMass = Math.floor(Math.random() * 10) + 1;
     const weightElement = createWeightElement(mass, clickX);
     
+    weightSound.currentTime = 0;
+    weightSound.play();
     weights.push({
         mass: mass,
         distance: distanceToCenter,
