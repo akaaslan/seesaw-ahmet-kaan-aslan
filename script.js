@@ -15,6 +15,7 @@ weightPreview.classList.add("weight-preview");
 bar.appendChild(weightPreview);
 
 const weightSound = new Audio("assets/pop.mp3")
+const resetSound = new Audio("assets/delete.mp3")
 
 bar.addEventListener("click", handleBarClick);
 reset.addEventListener("click", resetSeesaw);
@@ -173,6 +174,9 @@ function resetSeesaw() {
     leftWeightSpan.textContent = "0";
     rightWeightSpan.textContent = "0";
     angleSpan.textContent = "0";
+
+    resetSound.currentTime = 0;
+    resetSound.play();
 
     document.getElementById("entries").innerHTML = "";
 
